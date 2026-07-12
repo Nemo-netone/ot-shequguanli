@@ -24,7 +24,6 @@
 |---|---|---|---|
 | 平台管理员 | `abo` | `abo` | admin |
 | 社区业主 | `张三` | `123456` | user |
-| 物业人员 | `物业01` | `123456` | staff |
 
 这些账号只用于公开演示。请不要在演示系统里录入真实手机号、身份证、地址、订单或支付信息。
 
@@ -48,12 +47,12 @@
 - 原始项目：Spring Boot + Vue + MySQL，原始工程位于 springboot224bf(2)/springboot224bf。
 - 线上演示：Cloudflare Pages + Pages Functions + Supabase
 - 数据隔离：所有演示数据写入 `ot_shequguanli`，不覆盖 Supabase `public` 或其他项目 schema
-- API 形态：同域 `/api/*`，由 `site/_worker.js` 处理
+- API 形态：同域 `/api/*` 与原项目 `/springboot224bf/*`，由 `original-site/_worker.js` 处理
 
 ## 本地预览
 
 ```powershell
-npx wrangler@3 pages dev site
+npx wrangler@3 pages dev original-site
 ```
 
 如需连接真实 Supabase，需要在 Cloudflare Pages 或本机临时环境中配置：
@@ -73,7 +72,8 @@ CORS_ALLOWED_ORIGINS=https://ot-shequguanli.pages.dev
 
 - 这是作品集可演示版本，重点保证浏览、登录、统计、增删改查流程稳定。
 - 原始 Java/Vue/MySQL 项目源码保留在仓库中，线上不直接运行 Tomcat/Spring Boot。
-- 文件上传、真实支付、短信、地图、AI 或第三方平台能力在演示版中不接入真实服务。
+- 文件上传、真实支付、短信、AI 或第三方平台能力在演示版中不接入真实服务。
+- 高德地图默认隔离，避免第三方脚本持续连接影响演示稳定性；仅在显式添加 `?enableMap=1` 时尝试加载。
 
 ## 许可协议
 
