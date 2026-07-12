@@ -20,15 +20,15 @@
 1. 访客打开 `https://ot-shequguanli.pages.dev`，先浏览项目定位、核心模块和演示账号。
 2. 使用公开账号登录，进入工作台查看统计数据。
 3. 通过模块侧边栏进入业务表，进行列表浏览、关键词搜索、新增、编辑和删除。
-4. 管理员可完整演示数据维护流程；普通用户和工作人员账号用于展示不同角色入口。
+4. 管理员可完整演示数据维护流程；业主账号用于展示原始 UI 的普通用户入口。
 
 ## 调用链和数据流
 
 ```text
 浏览器
-  -> site/app.js
+  -> original-site 原 Vue 前端
   -> /api/login 或 /api/items/*
-  -> site/_worker.js
+  -> original-site/_worker.js
   -> Supabase RPC public.ot_shequguanli_demo_rest
   -> ot_shequguanli.accounts / ot_shequguanli.items
 ```
