@@ -8,7 +8,7 @@
 | 生产分支 | `main` |
 | Cloudflare Pages 项目 | `ot-shequguanli` |
 | 稳定演示地址 | `https://ot-shequguanli.pages.dev` |
-| API 运行时 | Cloudflare Pages Functions / `site/_worker.js` |
+| API 运行时 | Cloudflare Pages Functions / `original-site/_worker.js` |
 | Supabase schema | `ot_shequguanli` |
 
 首次生产部署使用 `main` 分支。后续重新发布继续使用同一个 GitHub 仓库、同一个 Pages 项目和同一个分支，保持演示地址不变。
@@ -16,7 +16,7 @@
 ## 部署架构
 
 ```text
-site/
+original-site/
   -> Cloudflare Pages
   -> /api/* Pages Functions
   -> Supabase RPC public.ot_shequguanli_demo_rest
@@ -50,7 +50,7 @@ supabase/schema.sql
 
 ```powershell
 supabase db query --linked --file supabase/schema.sql
-npx wrangler@3 pages deploy site --project-name ot-shequguanli --branch main
+npx wrangler@3 pages deploy original-site --project-name ot-shequguanli --branch main
 ```
 
 ## 验证清单
@@ -61,7 +61,6 @@ npx wrangler@3 pages deploy site --project-name ot-shequguanli --branch main
 - [ ] `/health` 返回服务和 schema 信息。
 - [ ] 管理员账号可登录。
 - [ ] 普通用户账号可登录。
-- [ ] 工作人员/运营账号可登录。
 - [ ] `/api/summary` 返回统计数据。
 - [ ] 演示数据新增、编辑、删除流程可用。
 - [ ] README 演示地址、账号、截图和限制说明准确。
@@ -69,6 +68,7 @@ npx wrangler@3 pages deploy site --project-name ot-shequguanli --branch main
 
 ## 已知限制
 
-- 演示版不接入真实短信、支付、地图或验证码服务。
+- 演示版不接入真实短信、支付或验证码服务。
+- 高德地图默认隔离；仅在显式使用 `?enableMap=1` 时尝试加载第三方地图脚本。
 - 上传图片为静态演示资源，不作为长期文件存储。
 - 权限控制以公开演示账号区分，不等同生产级鉴权。
